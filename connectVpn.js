@@ -27,7 +27,7 @@ function init(args) {
 			if(text.match(/(Connected to)/)) {
 				console.log('$$ exec oncomplete')
 
-				fs.writeFileSync('clickAdsReady.var',"1");
+				fs.writeFileSync('var/clickAdsReady.var',"1");
 				setTimeout(args.onComplete,1000)
 			}
 
