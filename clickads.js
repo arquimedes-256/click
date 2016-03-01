@@ -1,6 +1,8 @@
 var Horseman = require('node-horseman');
 var _ = require('underscore')
 var fs = require('fs')
+var Firebase = require('firebase');
+var DB = new Firebase('https://clickz.firebaseio.com/db');
 
 var userAgentList = fs.readFileSync('user_agents', {
 	encoding: 'utf8'
@@ -71,6 +73,7 @@ function _open(namespace,url){
 			var x = parseInt(fs.readFileSync('var/qtd.var',{encoding:'utf8'})) || 0; console.log("Qtd",x);
 			fs.writeFileSync("var/qtd.var",x+1)
 			openAds();
+			DB.push({ dt:new Date().getTime(),userAgent:currentUserAgent })
 		})
 }
 
