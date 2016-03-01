@@ -59,7 +59,7 @@ function initMain(){
     })
     setTimeout(function(){
 		console.log('$ tempo máximo alcançado')
-		reset();
+		restart();
 
 	},CONNECTION_TIMEOUT*5);
 }
