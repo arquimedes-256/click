@@ -24,7 +24,7 @@ function restart(){
 }
 
 function init() {
-	fs.writeFileSync('qtd.var',"0");
+	fs.writeFileSync('var/qtd.var',"0");
 	sharedObj.isReady = false;
 	connectVPN.init({onComplete:initMain})
 	setTimeout(function(){
@@ -66,7 +66,7 @@ function initMain(){
 
 setInterval(function(){
 
-	var x = parseInt(fs.readFileSync('qtd.var',{encoding:'utf8'})) || 0;
+	var x = parseInt(fs.readFileSync('var/qtd.var',{encoding:'utf8'})) || 0;
 	if(x > MAX_VIEWS_BY_IP){
 			logger.log("main.js:[!] Mudando de ip...")
 			restart();

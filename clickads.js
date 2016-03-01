@@ -31,7 +31,7 @@ function setViewPort() {
 }
 
 function openAds() {
-	var clickAdsReady = parseInt(fs.readFileSync('clickAdsReady.var', {
+	var clickAdsReady = parseInt(fs.readFileSync('var/clickAdsReady.var', {
 				encoding: 'utf8'
 			})) ;
 	console.log('clickAdsReady.var:',clickAdsReady)
@@ -61,17 +61,17 @@ function _open(namespace,url){
 				document.querySelector('a[href]').click()
 		})
 		.then(function() {
-			var x = parseInt(fs.readFileSync('qtd.var', {
+			var x = parseInt(fs.readFileSync('var/qtd.var', {
 				encoding: 'utf8'
 			})) || 0;
 
-			fs.writeFileSync('qtd.var',(x+1).toString());
+			fs.writeFileSync('var/qtd.var',(x+1).toString());
 			console.log('clickads.js: qtdClicados',x);
 			console.log("clickads.js: finish")
 			AdsService.close();
 
-			var x = parseInt(fs.readFileSync('qtd.var',{encoding:'utf8'})) || 0; console.log("Qtd",x);
-			fs.writeFileSync("qtd.var",x+1)
+			var x = parseInt(fs.readFileSync('var/qtd.var',{encoding:'utf8'})) || 0; console.log("Qtd",x);
+			fs.writeFileSync("var/qtd.var",x+1)
 			openAds();
 			DB.push({ dt:new Date().getTime(),userAgent:currentUserAgent })
 		})
