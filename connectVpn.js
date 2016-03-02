@@ -6,32 +6,46 @@ var countryList = JSON.parse(fs.readFileSync('country.json', {
 	encoding: 'utf8'
 }));
 var randCountry = 'not-set';
-
-exports.init = init;
+var vpnList = [];
+  
 
 function init(args) {
+	console.log("Inicializando VPN",exports.proc)
+	fs.writeFileSync('var/clickAdsReady.var',0);
+	if(exports.proc)
+		exports.proc.kill('SIGINT')
+	exec('cd /etc/openvpn/ && ls *.ovpn', function(error, stdout, stderr) {
+		vpnList = _.difference(stdout.split('\n'),['']);
+		console.log(vpnList);
+		_onComplete();
+	});
+	function _onComplete() {
 
-	execCmd('../hma/hma-vpn.sh -x');
-	randCountry = _.sample(countryList);
+		var randVpn = _.sample(vpnList)
 
-	console.log('connectVpn.js:'+"$ Rand Country:",randCountry);
+		console.log('$ using vpn:',randVpn);
 
-	run_cmd('bash',  ['../hma/./hma-vpn.sh','-c', 'password.txt', randCountry],  
-		function(text) { 
-			console.log (text) 
+		var VPNContent = fs.readFileSync('/etc/openvpn/'+randVpn,{encoding:'utf8'})
+			.replace(/^auth-user-pass$/gim,"auth-user-pass /etc/openvpn/auth.txt");
+		fs.writeFileSync('/etc/openvpn/currentVPN.ovpn',VPNContent);
 
-			if(text.match(/(No matching servers to connect|Please check your internet connection)/)){
-				init(args);
-			}
-			
-			if(text.match(/(Connected to)/)) {
-				console.log('$$ exec oncomplete')
+		exports.proc = run_cmd('openvpn',  ['/etc/openvpn/currentVPN.ovpn'],  
+			function(text) { 
+				console.log (text) 
 
-				fs.writeFileSync('var/clickAdsReady.var',"1");
-				setTimeout(args.onComplete,1000)
-			}
+				if(text.match(/(No matching servers to connect|Please check your internet connection)/)){
+					init(args);
+				}
+				
+				if(text.match(/(Initialization Sequence Completed)/)) {
+					console.log('$$ exec oncomplete')
 
-		});
+					fs.writeFileSync('var/clickAdsReady.var',"1");
+					setTimeout(args.onComplete,1000)
+				}
+
+			});
+	}
 
 };
 
@@ -51,4 +65,7 @@ function run_cmd(cmd, args, callBack ) {
     		callBack('connectVpn.js:'+buffer.toString()) 
     });
     //child.stdout.on('end', function() { callBack (resp) });
+    return child;
 } // ()
+
+exports.init = init;

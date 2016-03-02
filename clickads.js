@@ -53,8 +53,7 @@ function _open(namespace,url){
 		.viewport(currentWidth, currentHeight)
 		.userAgent(currentUserAgent)
 		.open(url)//"http://prpops.com/p/hhb6/direct/http://popcorn-tstudy.rhcloud.com/"
-		.wait(2000)
-		//.screenshot(namespace+"/" + new Date().getTime() + ".png")
+		.wait(5000)
 		.evaluate(function(){
 			if(document.querySelector('a[href]'))
 				document.querySelector('a[href]').click()

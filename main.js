@@ -17,7 +17,6 @@ var sharedObj = {clickAdsReady:false,isReady:false};
 var initJob = setTimeout(init);
 
 function restart(){
-	setClickAdsReady(false)
 	logger.log('main.js:[!!!!!!] restartando.......')
 	clearTimeout(initJob);
 	initJob = setTimeout(init);
@@ -25,6 +24,7 @@ function restart(){
 
 function init() {
 	fs.writeFileSync('var/qtd.var',"0");
+	setClickAdsReady(false);
 	sharedObj.isReady = false;
 	connectVPN.init({onComplete:initMain})
 	setTimeout(function(){
@@ -39,7 +39,7 @@ function init() {
 }
 function setClickAdsReady(boolean) {
 	sharedObj.clickAdsReady = boolean;
-	fs.writeFileSync('clickAdsReady.var',boolean ? 1 : 0);
+	fs.writeFileSync('var/clickAdsReady.var',boolean ? 1 : 0);
 }
 function initMain(){
 	setClickAdsReady(true)
