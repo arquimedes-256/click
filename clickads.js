@@ -32,15 +32,16 @@ function setViewPort() {
 
 function openAds() {
 	var clickAdsReady = parseInt(fs.readFileSync('var/clickAdsReady.var', {
-				encoding: 'utf8'
-			})) ;
-	console.log('clickAdsReady.var:',clickAdsReady)
-	if(!clickAdsReady)
+		encoding: 'utf8'
+	}));
+	console.log('clickAdsReady.var:', clickAdsReady)
+	if (!clickAdsReady)
 		return;
 	var X = ["http://prpops.com/p/hhb6/direct/http://popcorn-tstudy.rhcloud.com/"]
-	_open('ads',_.sample(X));
+	_open('ads', _.sample(X));
 }
-function _open(namespace,url){
+
+function _open(namespace, url) {
 	console.log("clickads.js:$ open")
 
 	setRandUserAgent();
@@ -52,10 +53,10 @@ function _open(namespace,url){
 	AdsService
 		.viewport(currentWidth, currentHeight)
 		.userAgent(currentUserAgent)
-		.open(url)//"http://prpops.com/p/hhb6/direct/http://popcorn-tstudy.rhcloud.com/"
-		.wait(5000)
-		.evaluate(function(){
-			if(document.querySelector('a[href]'))
+		.open(url) //"http://prpops.com/p/hhb6/direct/http://popcorn-tstudy.rhcloud.com/"
+	.wait(5000)
+		.evaluate(function() {
+			if (document.querySelector('a[href]'))
 				document.querySelector('a[href]').click()
 		})
 		.then(function() {
@@ -63,20 +64,28 @@ function _open(namespace,url){
 				encoding: 'utf8'
 			})) || 0;
 
-			fs.writeFileSync('var/qtd.var',(x+1).toString());
-			console.log('clickads.js: qtdClicados',x);
+			fs.writeFileSync('var/qtd.var', (x + 1).toString());
+			console.log('clickads.js: qtdClicados', x);
 			console.log("clickads.js: finish")
 			AdsService.close();
 
-			var x = parseInt(fs.readFileSync('var/qtd.var',{encoding:'utf8'})) || 0; console.log("Qtd",x);
-			fs.writeFileSync("var/qtd.var",x+1)
+			var x = parseInt(fs.readFileSync('var/qtd.var', {
+				encoding: 'utf8'
+			})) || 0;
+			console.log("Qtd", x);
+			fs.writeFileSync("var/qtd.var", x + 1)
 			openAds();
-			DB.push({ dt:new Date().getTime(),userAgent:currentUserAgent })
+			DB.push({
+				dt: new Date().getTime(),
+				userAgent: currentUserAgent
+			})
 		})
 }
 
-(exports.init = function(_mainObj){
+(exports.init = function(_mainObj) {
 	sharedObj = _mainObj;
 	openAds();
 })
-exports.init({clickAdsReady:true});
+exports.init({
+	clickAdsReady: true
+});
