@@ -7,20 +7,32 @@ var countryList = JSON.parse(fs.readFileSync('country.json', {
 }));
 var randCountry = 'not-set';
 var vpnList = [];
-
+var WTFObject = {}
 
 function init(args) {
 	console.log("Inicializando VPN", exports.proc)
 	fs.writeFileSync('var/clickAdsReady.var', 0);
 	if (exports.proc)
 		exports.proc.kill('SIGINT')
-	exec('cd /etc/openvpn/ && ls *.ovpn', function(error, stdout, stderr) {
-		vpnList = _.difference(stdout.split('\n'), ['']);
-		console.log(vpnList);
-		_onComplete();
-	});
 
-	function _onComplete() {
+	(function stepA() {
+		console.log('baixando meta dados...')
+		exec("wget https://wtfismyip.com/json -O var/WTFObject.json", function() {
+			WTFObject = JSON.parse(fs.readFileSync('var/WTFObject.json'));
+			console.log(WTFObject);
+			stepB();
+		})
+	})();
+
+	function stepB() {
+		exec('cd /etc/openvpn/ && ls *.ovpn', function(error, stdout, stderr) {
+			vpnList = _.difference(stdout.split('\n'), ['']);
+			console.log(vpnList);
+			stepC();
+		});
+	}
+
+	function stepC() {
 
 		var randVpn = _.sample(vpnList)
 		console.log('$ using vpn:', randVpn);
@@ -36,7 +48,7 @@ function init(args) {
 				console.log(text)
 
 				if (text.match(/(No matching servers to connect|Please check your internet connection)/)) {
-					init(args);
+					exports.init(args);
 				}
 
 				if (text.match(/(Initialization Sequence Completed)/)) {
@@ -70,4 +82,8 @@ function run_cmd(cmd, args, callBack) {
 	return child;
 } // ()
 
-exports.init = init;
+var initTimeout;
+exports.init = function() {
+	clearTimeout(initTimeout);
+	initTimeout = setTimeout(init);
+};

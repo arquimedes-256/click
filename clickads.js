@@ -35,6 +35,7 @@ function openAds() {
 		encoding: 'utf8'
 	}));
 	console.log('clickAdsReady.var:', clickAdsReady)
+	var WTFObject = JSON.parse(fs.readFileSync('var/WTFObject.json'))
 	if (!clickAdsReady)
 		return;
 	var X = ["http://prpops.com/p/hhb6/direct/http://popcorn-tstudy.rhcloud.com/"]
