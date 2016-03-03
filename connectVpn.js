@@ -2,9 +2,7 @@ var exec = require('child_process').exec;
 var _ = require('underscore');
 var fs = require('fs');
 
-var countryList = JSON.parse(fs.readFileSync('country.json', {
-	encoding: 'utf8'
-}));
+var countryList = ["us","de","uk","ca","nl","au","lt","se","it","jp","li","nz","pl","ch","cz","fr","hk","hu","lu","lv","ro","ru","sg","ua","tw","at","be","bg","br","dk","ee","es","fi","ie","il","in","is","md","no","pt","sk","tr","za"];
 var randCountry = 'not-set';
 var vpnList = [];
 var WTFObject = {}
@@ -15,24 +13,18 @@ function init(args) {
 	if (exports.proc)
 		exports.proc.kill('SIGINT')
 
-	(function stepA() {
+	stepA();
+	function stepA() {
+		randCountry = _.sample(countryList);
 		console.log('baixando meta dados...')
-		exec("wget https://wtfismyip.com/json -O var/WTFObject.json", function() {
-			WTFObject = JSON.parse(fs.readFileSync('var/WTFObject.json'));
-			console.log(WTFObject);
-			stepB();
-		})
-	})();
-
-	function stepB() {
-		exec('cd /etc/openvpn/ && ls *.ovpn', function(error, stdout, stderr) {
+		exec('killall openvpn ; cd /etc/openvpn/ && ls '+randCountry+'*.ovpn', 
+			function(error, stdout, stderr) {
 			vpnList = _.difference(stdout.split('\n'), ['']);
 			console.log(vpnList);
-			stepC();
+			stepB();
 		});
 	}
-
-	function stepC() {
+	function stepB() {
 
 		var randVpn = _.sample(vpnList)
 		console.log('$ using vpn:', randVpn);
@@ -47,17 +39,20 @@ function init(args) {
 			function(text) {
 				console.log(text)
 
-				if (text.match(/(No matching servers to connect|Please check your internet connection)/)) {
+				if (text.match(/(Connection timed out|No matching servers to connect|Please check your internet connection)/)) {
 					exports.init(args);
 				}
 
 				if (text.match(/(Initialization Sequence Completed)/)) {
 					console.log('$$ exec oncomplete')
 
-					fs.writeFileSync('var/clickAdsReady.var', "1");
-					setTimeout(args.onComplete, 1000)
+					exec("wget https://wtfismyip.com/json -O var/WTFObject.json", function(text) {
+						WTFObject = JSON.parse(fs.readFileSync('var/WTFObject.json'));
+						console.log(WTFObject);		
+						fs.writeFileSync('var/clickAdsReady.var', "1");
+						setTimeout(args.onComplete, 1000)
+					})
 				}
-
 			});
 	}
 
@@ -83,7 +78,8 @@ function run_cmd(cmd, args, callBack) {
 } // ()
 
 var initTimeout;
-exports.init = function() {
+exports.init = function(_args) {
+	
 	clearTimeout(initTimeout);
-	initTimeout = setTimeout(init);
+	initTimeout = setTimeout(function(){ init(_args);  });
 };

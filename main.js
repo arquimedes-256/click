@@ -1,5 +1,9 @@
+
 var exec = require('child_process').exec;
 var fs = require('fs');
+
+fs.writeFileSync('var/WTFObject.json','{}');
+
 var connectVPN = require('./connectVpn.js');
 var clickads = require('./clickads.js');
 var logger = require('./logger.js');
@@ -18,7 +22,6 @@ var sharedObj = {
 
 
 var initJob = setTimeout(init);
-
 function restart() {
 	logger.log('main.js:[!!!!!!] restartando.......')
 	clearTimeout(initJob);
@@ -68,7 +71,7 @@ function initMain() {
 		console.log('$ tempo máximo alcançado')
 		restart();
 
-	}, CONNECTION_TIMEOUT);
+	}, CONNECTION_TIMEOUT*5000);
 }
 
 setInterval(function() {
