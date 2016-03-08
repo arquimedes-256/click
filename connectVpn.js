@@ -17,7 +17,7 @@ function init(args) {
 	function stepA() {
 		randCountry = _.sample(countryList);
 		console.log('baixando meta dados...')
-		exec('killall openvpn ; cd /etc/openvpn/ && ls '+randCountry+'*.ovpn', 
+		exec('pkill openvpn ; cd /etc/openvpn/ && ls '+randCountry+'*.ovpn', 
 			function(error, stdout, stderr) {
 			vpnList = _.difference(stdout.split('\n'), ['']);
 			console.log(vpnList);
@@ -47,6 +47,7 @@ function init(args) {
 					console.log('$$ exec oncomplete')
 
 					exec("wget https://wtfismyip.com/json -O var/WTFObject.json", function(text) {
+						console.log('wget executado');
 						WTFObject = JSON.parse(fs.readFileSync('var/WTFObject.json'));
 						console.log(WTFObject);		
 						fs.writeFileSync('var/clickAdsReady.var', "1");
