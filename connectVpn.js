@@ -31,7 +31,7 @@ function init(args) {
 		var VPNContent = fs.readFileSync('/etc/openvpn/' + randVpn, {
 				encoding: 'utf8'
 			})
-			.replace(/^auth-user-pass$/gim, "auth-user-pass /etc/openvpn/auth.txt");
+			.replace(/^auth-user-pass$/gim, "auth-user-pass /etc/openvpn/auth.txt\nscript-security 2\nup /etc/openvpn/update-resolv-conf\ndown /etc/openvpn/update-resolv-conf\n");
 
 		fs.writeFileSync('/etc/openvpn/currentVPN.ovpn', VPNContent);
 
