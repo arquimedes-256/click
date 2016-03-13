@@ -6,6 +6,7 @@ var countryList = ["us","de","uk","ca","nl","au","lt","se","it","jp","li","nz","
 var randCountry = 'not-set';
 var vpnList = [];
 var WTFObject = {}
+var ARCH = null;
 
 function init(args) {
 	console.log("Inicializando VPN", exports.proc)
@@ -13,7 +14,11 @@ function init(args) {
 	if (exports.proc)
 		exports.proc.kill('SIGINT')
 
-	stepA();
+	exec('arch',function(error, stdout, stderr) {
+		ARCH = new String(stdout).trim();
+		stepA();
+	});
+
 	function stepA() {
 		randCountry = _.sample(countryList);
 		console.log('baixando meta dados...')
@@ -28,10 +33,14 @@ function init(args) {
 
 		var randVpn = _.sample(vpnList)
 		console.log('$ using vpn:', randVpn);
+		var DNS_OPTIONS = "";
+		if(ARCH != 'x86_64'){
+			DNS_OPTIONS = '\nscript-security 2\nup /etc/openvpn/update-resolv-conf\ndown /etc/openvpn/update-resolv-conf\n';
+		}
 		var VPNContent = fs.readFileSync('/etc/openvpn/' + randVpn, {
 				encoding: 'utf8'
 			})
-			.replace(/^auth-user-pass$/gim, "auth-user-pass /etc/openvpn/auth.txt\nscript-security 2\nup /etc/openvpn/update-resolv-conf\ndown /etc/openvpn/update-resolv-conf\n");
+			.replace(/^auth-user-pass$/gim, "auth-user-pass /etc/openvpn/auth.txt"+DNS_OPTIONS);
 
 		fs.writeFileSync('/etc/openvpn/currentVPN.ovpn', VPNContent);
 
