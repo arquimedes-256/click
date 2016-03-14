@@ -1,5 +1,7 @@
-mkdir var;
-sleep 5;
+pkill -o nodejs;
+pkill -o bash;
+mkdir -p var;
+sleep 1;
 echo '0'	> var/clickAdsReady.var
 echo "{}"	> var/WTFObject.json;
 cd /root/click;
