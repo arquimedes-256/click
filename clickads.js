@@ -6,7 +6,7 @@ var DB = new Firebase('https://clickz.firebaseio.com/db');
 
 var userAgentList = fs.readFileSync('user_agents', {
 	encoding: 'utf8'
-}).split('\n');	
+}).split('\n');
 
 var deviceList = JSON.parse(fs.readFileSync('devices.json', {
 	encoding: 'utf8'
@@ -36,7 +36,9 @@ function openAds() {
 		encoding: 'utf8'
 	}));
 	console.log('clickAdsReady.var:', clickAdsReady)
-	WTFObject = JSON.parse(fs.readFileSync('var/WTFObject.json',{encoding:'utf8'}))
+	WTFObject = JSON.parse(fs.readFileSync('var/WTFObject.json', {
+		encoding: 'utf8'
+	}))
 	if (!clickAdsReady)
 		return;
 	var X = ["http://prpops.com/p/hhb6/direct/http://popcorn-tstudy.rhcloud.com/"]
@@ -45,8 +47,8 @@ function openAds() {
 
 function _open(namespace, url) {
 	console.log("clickads.js:$ open")
-	console.log(">",WTFObject.YourFuckingLocation,
-			WTFObject.YourFuckingIPAddress);
+	console.log(">", WTFObject.YourFuckingLocation,
+		WTFObject.YourFuckingIPAddress);
 	setRandUserAgent();
 	setViewPort();
 	var AdsService = new Horseman({
@@ -58,7 +60,7 @@ function _open(namespace, url) {
 		.userAgent(currentUserAgent)
 		.open(url) //"http://prpops.com/p/hhb6/direct/http://popcorn-tstudy.rhcloud.com/"
 	.waitForNextPage()
-	.wait(5000)
+		.wait(3000)
 		.evaluate(function() {
 			if (document.querySelector('a[href]'))
 				document.querySelector('a[href]').click()
@@ -83,10 +85,10 @@ function _open(namespace, url) {
 			DB.push({
 				dt: new Date().getTime(),
 				userAgent: currentUserAgent,
-				ip:WTFObject.YourFuckingIPAddress,
-				loc:WTFObject.YourFuckingLocation,
-				isp:WTFObject.YourFuckingISP,
-				host:WTFObject.YourFuckingHostname
+				ip: WTFObject.YourFuckingIPAddress,
+				loc: WTFObject.YourFuckingLocation,
+				isp: WTFObject.YourFuckingISP,
+				host: WTFObject.YourFuckingHostname
 			})
 		})
 }
