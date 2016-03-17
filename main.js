@@ -1,8 +1,7 @@
-
 var exec = require('child_process').exec;
 var fs = require('fs');
 
-fs.writeFileSync('var/WTFObject.json','{}');
+fs.writeFileSync('var/WTFObject.json', '{}');
 
 var connectVPN = require('./connectVpn.js');
 var clickads = require('./clickads.js');
@@ -12,7 +11,7 @@ const MAX_NODES = 1;
 const START_NODE_INTERVAL = 10000;
 const CHECK_NODE_INTERVAL = START_NODE_INTERVAL * MAX_NODES;
 const CONNECTION_TIMEOUT = 60000;
-const MAX_VIEWS_BY_IP = 10;
+const MAX_VIEWS_BY_IP = 30;
 
 var count = MAX_NODES;
 var sharedObj = {
@@ -22,6 +21,7 @@ var sharedObj = {
 
 
 var initJob = setTimeout(init);
+
 function restart() {
 	logger.log('main.js:[!!!!!!] restartando.......')
 	clearTimeout(initJob);
@@ -54,24 +54,29 @@ function setClickAdsReady(boolean) {
 function initMain() {
 	setClickAdsReady(true)
 	sharedObj.isReady = true;
-	var spawn = require('child_process').spawn;
-	var child = spawn('nodejs', ['clickads.js']);
 
-	child.stdout.on('data',
-		function(buffer) {
-			logger.log(buffer.toString())
-		});
+	execCmd('pkill -9 -f "nodejs clickads.js"');
 
-	child.stdout.on('error', function(buffer) {
-		child.exit();
-		logger.log('main.js:[!!!!!!!!!!!!!!!] Error no processo')
-		restart();
-	})
 	setTimeout(function() {
-		console.log('$ tempo máximo alcançado')
-		restart();
+		var spawn = require('child_process').spawn;
+		var child = spawn('nodejs', ['clickads.js']);
 
-	}, CONNECTION_TIMEOUT*5000);
+		child.stdout.on('data',
+			function(buffer) {
+				logger.log(buffer.toString())
+			});
+
+		child.stdout.on('error', function(buffer) {
+			child.exit();
+			logger.log('main.js:[!!!!!!!!!!!!!!!] Error no processo')
+			restart();
+		})
+		setTimeout(function() {
+			console.log('$ tempo máximo alcançado')
+			restart();
+
+		}, CONNECTION_TIMEOUT * 5000);
+	}, 1000)
 }
 
 setInterval(function() {
@@ -86,3 +91,10 @@ setInterval(function() {
 
 
 }, 1000)
+
+function execCmd(cmd) {
+	var ret = exec(cmd, function(error, stdout, stderr) {
+		console.log('$main.js: stdout', stdout);
+		console.log('$main.js: stderr', stderr);
+	});
+}
