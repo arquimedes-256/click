@@ -3,6 +3,7 @@ var _ = require('underscore')
 var fs = require('fs')
 var Firebase = require('firebase');
 var DB = new Firebase('https://clickz.firebaseio.com/db');
+
 var userAgentList = fs.readFileSync('user_agents', {
 	encoding: 'utf8'
 }).split('\n');
@@ -51,7 +52,7 @@ function _open(namespace, url) {
 	setRandUserAgent();
 	setViewPort();
 	var AdsService = new Horseman({
-		loadImages: true
+		loadImages: _.sample([true, false])
 	});
 	console.log(new Date())
 	AdsService
