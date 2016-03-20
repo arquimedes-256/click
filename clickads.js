@@ -3,7 +3,6 @@ var _ = require('underscore')
 var fs = require('fs')
 var Firebase = require('firebase');
 var DB = new Firebase('https://clickz.firebaseio.com/db');
-
 var userAgentList = fs.readFileSync('user_agents', {
 	encoding: 'utf8'
 }).split('\n');
@@ -84,11 +83,11 @@ function _open(namespace, url) {
 
 			DB.push({
 				dt: new Date().getTime(),
-				userAgent: currentUserAgent,
-				ip: WTFObject.YourFuckingIPAddress,
-				loc: WTFObject.YourFuckingLocation,
-				isp: WTFObject.YourFuckingISP,
-				host: WTFObject.YourFuckingHostname
+				// userAgent: currentUserAgent,
+				// ip: WTFObject.YourFuckingIPAddress,
+				// loc: WTFObject.YourFuckingLocation,
+				// isp: WTFObject.YourFuckingISP,
+				// host: WTFObject.YourFuckingHostname
 			})
 		})
 }
