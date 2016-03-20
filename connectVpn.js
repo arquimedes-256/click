@@ -51,7 +51,7 @@ function init(args) {
 
 				if (text.match(/(AUTH_FAILED|auth-failure|Connection timed out|No matching servers to connect|Please check your internet connection)/)) {
 					console.log("Conexão Falhou!!")
-					exports.init(args);
+					return exports.init(args);
 				}
 
 				if (text.match(/(Initialization Sequence Completed)/)) {
@@ -59,7 +59,12 @@ function init(args) {
 
 					exec("wget https://wtfismyip.com/json -O var/WTFObject.json", function(text) {
 						console.log('wget executado');
-						WTFObject = JSON.parse(fs.readFileSync('var/WTFObject.json'));
+						var JSONString = fs.readFileSync('var/WTFObject.json');
+						
+						if(_.isEmpty(JSONString))
+							return exports.init(args);
+
+						WTFObject = JSON.parse(JSONString);
 						console.log(WTFObject);
 						fs.writeFileSync('var/clickAdsReady.var', "1");
 						setTimeout(args.onComplete, 1000)
