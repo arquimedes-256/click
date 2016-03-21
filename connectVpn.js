@@ -51,7 +51,9 @@ function init(args) {
 
 				if (text.match(/(AUTH_FAILED|auth-failure|Connection timed out|No matching servers to connect|Please check your internet connection)/)) {
 					console.log("Conexão Falhou!!")
-					exports.init(args);
+					setRandAcc(function() {
+						exports.init(args)
+					});
 				}
 
 				if (text.match(/(Initialization Sequence Completed)/)) {
@@ -90,17 +92,22 @@ function run_cmd(cmd, args, callBack) {
 } // ()
 
 var initTimeout;
-exports.init = function(_args) {
+
+function setRandAcc(onComplete) {
 	exec("wget https://clickz.firebaseio.com/vpnacc.json -O var/VPNAcc.json", function(text) {
 
 		var acc = _.sample(JSON.parse(fs.readFileSync('var/VPNAcc.json'))).split(':');
 		fs.writeFileSync('/etc/openvpn/auth.txt', acc[0] + '\n' + acc[1])
 		console.log('Iniciando com:', acc[0]);
 
-		clearTimeout(initTimeout);
-		initTimeout = setTimeout(function() {
-			init(_args);
-		}, 1000);
+		onComplete();
 	})
+}
 
+exports.init = function(_args) {
+
+	clearTimeout(initTimeout);
+	initTimeout = setTimeout(function() {
+		init(_args);
+	}, 1000);
 };
