@@ -58,7 +58,7 @@ function init(args) {
 
 				if (text.match(/(Initialization Sequence Completed)/)) {
 					console.log('$$ exec oncomplete')
-
+					isConnected = true;
 					exec("wget https://wtfismyip.com/json -O var/WTFObject.json", function(text) {
 						console.log('wget executado');
 						var JSONString = fs.readFileSync('var/WTFObject.json');
@@ -109,10 +109,19 @@ function setRandAcc(onComplete) {
 	})
 }
 
+var isConnected = false;
 exports.init = function(_args) {
 
+	isConnected = false;
 	clearTimeout(initTimeout);
 	initTimeout = setTimeout(function() {
 		init(_args);
 	}, 1000);
+
+	setTimeout(function() {
+		if (isConnected === false) {
+			console.log("Reconectando por timeout!")
+			exports.init();
+		}
+	}, 60000)
 };
