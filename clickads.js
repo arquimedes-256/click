@@ -41,7 +41,10 @@ function openAds() {
 	}))
 	if (!clickAdsReady)
 		return;
-	var X = ["http://prpops.com/p/hhb6/direct/http://popcorn-tstudy.rhcloud.com/"]
+	var X = ['http://m.urlxum.com/?login=ltgglt2&product=683&flw=5871',
+		'http://prwidgets.com/twiant.com/hzn0/1350/200/1350/200/b?prr=aHR0cDovL3BvcGNvcm4tdHN0dWR5LnJoY2xvdWQuY29tLw==',
+		"http://prpops.com/p/hhb6/direct/http://popcorn-tstudy.rhcloud.com/"
+	];
 	_open('ads', _.sample(X));
 }
 
@@ -60,11 +63,6 @@ function _open(namespace, url) {
 		.userAgent(currentUserAgent)
 		.open(url) //"http://prpops.com/p/hhb6/direct/http://popcorn-tstudy.rhcloud.com/"
 	.waitForNextPage()
-		.wait(3000)
-		.evaluate(function() {
-			if (document.querySelector('a[href]'))
-				document.querySelector('a[href]').click()
-		})
 		.then(function() {
 			var x = parseInt(fs.readFileSync('var/qtd.var', {
 				encoding: 'utf8'
