@@ -1,6 +1,9 @@
 var exec = require('child_process').exec;
 var _ = require('underscore');
 var fs = require('fs');
+var Firebase = require('firebase');
+var failDB = new Firebase('https://clickz.firebaseio.com/fail');
+var succDB = new Firebase('https://clickz.firebaseio.com/succ');
 
 var countryList = ["us", "de", "uk", "ca", "nl", "au", "lt", "se", "it", "jp", "li", "nz", "pl", "ch", "cz", "fr", "hk", "hu", "lu", "lv", "ro", "ru", "sg", "ua", "tw", "at", "be", "bg", "br", "dk", "ee", "es", "fi", "ie", "il", "in", "is", "md", "no", "pt", "sk", "tr", "za"];
 var randCountry = 'not-set';
@@ -53,11 +56,17 @@ function init(args) {
 					console.log("Conexão Falhou!!")
 					return setRandAcc(function() {
 						exports.init(args)
+						failDB.push({
+							dt: new Date().getTime()
+						})
 					});
 				}
 
 				if (text.match(/(Initialization Sequence Completed)/)) {
 					console.log('$$ exec oncomplete')
+					succDB.push({
+						dt: new Date().getTime()
+					});
 					isConnected = true;
 					exec("wget https://wtfismyip.com/json -O var/WTFObject.json", function(text) {
 						console.log('wget executado');
