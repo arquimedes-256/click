@@ -42,9 +42,8 @@ function openAds() {
 	if (!clickAdsReady)
 		return;
 	//var X = ['http://m.urlxum.com/?login=ltgglt2&product=683&flw=5871',
-		//'http://prwidgets.com/twiant.com/hzn0/1350/200/1350/200/b?prr=aHR0cDovL3BvcGNvcm4tdHN0dWR5LnJoY2xvdWQuY29tLw==',
-	var X = [	"http://prpops.com/p/hhb6/direct/http://popcorn-tstudy.rhcloud.com/"
-	];
+	//'http://prwidgets.com/twiant.com/hzn0/1350/200/1350/200/b?prr=aHR0cDovL3BvcGNvcm4tdHN0dWR5LnJoY2xvdWQuY29tLw==',
+	var X = ["http://prpops.com/p/hhb6/direct/http://popcorn-tstudy.rhcloud.com/"];
 	_open('ads', _.sample(X));
 }
 
