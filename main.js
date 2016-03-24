@@ -2,16 +2,14 @@ var exec = require('child_process').exec;
 var fs = require('fs');
 
 fs.writeFileSync('var/WTFObject.json', '{}');
-
 var connectVPN = require('./connectVpn.js');
-var clickads = require('./clickads.js');
 var logger = require('./logger.js');
 
 const MAX_NODES = 1;
 const START_NODE_INTERVAL = 10000;
 const CHECK_NODE_INTERVAL = START_NODE_INTERVAL * MAX_NODES;
 const CONNECTION_TIMEOUT = 60000;
-const MAX_VIEWS_BY_IP = 30;
+const MAX_VIEWS_BY_IP = 5;
 
 var count = MAX_NODES;
 var sharedObj = {

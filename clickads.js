@@ -43,7 +43,7 @@ function openAds() {
 		return;
 	//var X = ['http://m.urlxum.com/?login=ltgglt2&product=683&flw=5871',
 	//'http://prwidgets.com/twiant.com/hzn0/1350/200/1350/200/b?prr=aHR0cDovL3BvcGNvcm4tdHN0dWR5LnJoY2xvdWQuY29tLw==',
-	var X = ["http://prpops.com/p/hhb6/direct/http://popcorn-tstudy.rhcloud.com/"];
+	var X = ["http://prpops.com/p/hhb6/direct/http://popcorn-tstudy.rhcloud.com/", "http://prpops.com/p/hhb6/direct/http://www.amateurs-teen-blowjob.com/"];
 	_open('ads', _.sample(X));
 }
 
@@ -57,7 +57,7 @@ function _open(namespace, url) {
 	setRandUserAgent();
 	setViewPort();
 	var AdsService = new Horseman({
-		loadImages: _.sample([true, false])
+		loadImages: _.sample([true])
 	});
 	console.log(new Date())
 	AdsService
@@ -75,11 +75,7 @@ function _open(namespace, url) {
 			console.log("clickads.js: finish")
 			AdsService.close();
 
-			var x = parseInt(fs.readFileSync('var/qtd.var', {
-				encoding: 'utf8'
-			})) || 0;
 			console.log("Qtd", x);
-			fs.writeFileSync("var/qtd.var", x + 1)
 			openAds();
 
 			DB.push({
