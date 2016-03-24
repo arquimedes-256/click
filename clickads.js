@@ -51,8 +51,7 @@ function _open(namespace, url) {
 	console.log("clickads.js:$ open")
 
 	console.log(url);
-	console.log(">", WTFObject.YourFuckingLocation,
-		WTFObject.YourFuckingIPAddress);
+	console.log(">", WTFObject);
 
 	setRandUserAgent();
 	setViewPort();
