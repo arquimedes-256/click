@@ -68,7 +68,7 @@ function init(args) {
 						dt: new Date().getTime()
 					});
 					isConnected = true;
-					exec("wget https://ipinfo.io -O var/WTFObject.json", function(text) {
+					exec("wget http://ipinfo.io -O var/WTFObject.json", function(text) {
 						console.log('wget executado');
 						var JSONString = fs.readFileSync('var/WTFObject.json');
 
