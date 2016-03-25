@@ -114,7 +114,10 @@ function setRandAcc(onComplete) {
 		fs.writeFileSync('/etc/openvpn/auth.txt', acc[0] + '\n' + acc[1])
 		console.log('Iniciando com:', acc[0]);
 
-		onComplete();
+		if (acc[0].match(/#/))
+			setRandAcc(onComplete);
+		else
+			onComplete();
 	})
 }
 

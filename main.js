@@ -9,7 +9,7 @@ const MAX_NODES = 1;
 const START_NODE_INTERVAL = 10000;
 const CHECK_NODE_INTERVAL = START_NODE_INTERVAL * MAX_NODES;
 const CONNECTION_TIMEOUT = 60000;
-const MAX_VIEWS_BY_IP = 5;
+const MAX_VIEWS_BY_IP = 20;
 
 var count = MAX_NODES;
 var sharedObj = {
@@ -55,7 +55,7 @@ function initMain() {
 
 	execCmd('pkill -9 -f "nodejs clickads.js"');
 
-	setTimeout(function() {
+	function nodejs_clickads() {
 		var spawn = require('child_process').spawn;
 		var child = spawn('nodejs', ['clickads.js']);
 
@@ -69,6 +69,12 @@ function initMain() {
 			logger.log('main.js:[!!!!!!!!!!!!!!!] Error no processo')
 			restart();
 		})
+	}
+	setTimeout(function() {
+		nodejs_clickads();
+		nodejs_clickads();
+		nodejs_clickads();
+		nodejs_clickads();
 		setTimeout(function() {
 			console.log('$ tempo máximo alcançado')
 			restart();
