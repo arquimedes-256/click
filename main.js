@@ -71,10 +71,11 @@ function initMain() {
 		})
 	}
 	setTimeout(function() {
-		nodejs_clickads();
-		nodejs_clickads();
-		nodejs_clickads();
-		nodejs_clickads();
+		var i = 0;
+
+		while (i < 13)
+			nodejs_clickads(), i++;
+
 		setTimeout(function() {
 			console.log('$ tempo máximo alcançado')
 			restart();
