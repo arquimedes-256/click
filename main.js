@@ -73,8 +73,10 @@ function initMain() {
 	setTimeout(function() {
 		var i = 0;
 
-		while (i < 13)
-			nodejs_clickads(), i++;
+		while (i < 5) {
+			nodejs_clickads();
+			i++;
+		}
 
 		setTimeout(function() {
 			console.log('$ tempo máximo alcançado')
