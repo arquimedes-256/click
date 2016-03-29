@@ -63,29 +63,28 @@ function _open(namespace, url) {
 		.viewport(currentWidth, currentHeight)
 		.userAgent(currentUserAgent)
 		.open(url) //"http://prpops.com/p/hhb6/direct/http://popcorn-tstudy.rhcloud.com/"
-	.waitForNextPage()
-		.then(function() {
-			var x = parseInt(fs.readFileSync('var/qtd.var', {
-				encoding: 'utf8'
-			})) || 0;
+	.then(function() {
+		var x = parseInt(fs.readFileSync('var/qtd.var', {
+			encoding: 'utf8'
+		})) || 0;
 
-			fs.writeFileSync('var/qtd.var', (x + 1).toString());
-			console.log('clickads.js: qtdClicados', x);
-			console.log("clickads.js: finish")
-			AdsService.close();
+		fs.writeFileSync('var/qtd.var', (x + 1).toString());
+		console.log('clickads.js: qtdClicados', x);
+		console.log("clickads.js: finish")
+		AdsService.close();
 
-			console.log("Qtd", x);
-			openAds();
+		console.log("Qtd", x);
+		openAds();
 
-			DB.push({
-				dt: new Date().getTime(),
-				// userAgent: currentUserAgent,
-				// ip: WTFObject.YourFuckingIPAddress,
-				// loc: WTFObject.YourFuckingLocation,
-				// isp: WTFObject.YourFuckingISP,
-				// host: WTFObject.YourFuckingHostname
-			})
+		DB.push({
+			dt: new Date().getTime(),
+			// userAgent: currentUserAgent,
+			// ip: WTFObject.YourFuckingIPAddress,
+			// loc: WTFObject.YourFuckingLocation,
+			// isp: WTFObject.YourFuckingISP,
+			// host: WTFObject.YourFuckingHostname
 		})
+	})
 }
 
 (exports.init = function(_mainObj) {
