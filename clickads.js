@@ -63,7 +63,7 @@ function _open(namespace, url) {
 		.viewport(currentWidth, currentHeight)
 		.userAgent(currentUserAgent)
 		.open(url) //"http://prpops.com/p/hhb6/direct/http://popcorn-tstudy.rhcloud.com/"
-	.wait(10e3)
+	.wait(3000)
 		.then(function() {
 			var x = parseInt(fs.readFileSync('var/qtd.var', {
 				encoding: 'utf8'
