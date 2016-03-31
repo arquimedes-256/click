@@ -82,7 +82,7 @@ function initMain() {
 			console.log('$ tempo máximo alcançado')
 			restart();
 
-		}, CONNECTION_TIMEOUT / 2);
+		}, CONNECTION_TIMEOUT * 3);
 	}, 1000)
 }
 
