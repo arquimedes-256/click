@@ -54,6 +54,7 @@ function initMain() {
 	sharedObj.isReady = true;
 
 	execCmd('pkill -9 -f "nodejs clickads.js"');
+	execCmd('pkill phantomjs');
 
 	function nodejs_clickads() {
 		var spawn = require('child_process').spawn;
@@ -73,7 +74,7 @@ function initMain() {
 	setTimeout(function() {
 		var i = 0;
 
-		while (i < 5) {
+		while (i < 3) {
 			nodejs_clickads();
 			i++;
 		}
@@ -82,7 +83,7 @@ function initMain() {
 			console.log('$ tempo máximo alcançado')
 			restart();
 
-		}, CONNECTION_TIMEOUT * 3);
+		}, CONNECTION_TIMEOUT * 5);
 	}, 1000)
 }
 
