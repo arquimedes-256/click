@@ -113,7 +113,12 @@ var initTimeout;
 function setRandAcc(onComplete) {
 	exec("wget https://clickz.firebaseio.com/vpnacc.json -O var/VPNAcc.json", function(text) {
 
-		var acc = _.sample(JSON.parse(fs.readFileSync('var/VPNAcc.json'))).split(':');
+		var acc = _.sample(
+			_.difference(
+				_.values(JSON.parse(fs.readFileSync('var/VPNAcc.json')))
+			,[null])
+		).split(':');
+		
 		fs.writeFileSync('/etc/openvpn/auth.txt', acc[0] + '\n' + acc[1])
 		console.log('Iniciando com:', acc[0]);
 
