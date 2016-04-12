@@ -36,6 +36,9 @@ function openAds() {
 		encoding: 'utf8'
 	}));
 	console.log('clickAdsReady.var:', clickAdsReady)
+	if(parseInt(clickAdsReady) == 0)
+		return openAds();
+		
 	WTFObject = JSON.parse(fs.readFileSync('var/WTFObject.json', {
 		encoding: 'utf8'
 	}))
