@@ -62,7 +62,9 @@ function init(args) {
 						})
 					});
 				}
-
+				if (text.match(/Network is unreachable/)) {
+					execCmd("reboot");
+				}
 				if (text.match(/(Initialization Sequence Completed)/)) {
 					console.log('$$ exec oncomplete')
 					succDB.push({
