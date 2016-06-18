@@ -5,7 +5,12 @@ var Firebase = require('firebase');
 var failDB = new Firebase('https://clickz.firebaseio.com/fail');
 var succDB = new Firebase('https://clickz.firebaseio.com/succ');
 
-var countryList = ["us", "de", "uk", "ca", "nl", "au", "lt", "se", "it", "jp", "li", "nz", "pl", "ch", "cz", "fr", "hk", "hu", "lu", "lv", "ro", "ru", "sg", "ua", "tw", "at", "be", "bg", "br", "dk", "ee", "es", "fi", "ie", "il", "in", "is", "md", "no", "pt", "sk", "tr", "za"];
+var countryList = ["us", "de", "uk", "ca", "nl","jp", "au","es","pt", "br","fr"];
+
+var outher = [ "lt", "se", "it",  "li", "nz", "pl", "ch", "cz",
+"hk", "hu", "lu", "lv", "ro", "ru", "sg", "ua", "tw", "at", "be", 
+"bg", "dk", "ee",  "fi", "ie", "il", "in", "is", "md", "no",  "sk", "tr", "za"];
+
 var randCountry = 'not-set';
 var vpnList = [];
 var WTFObject = {}
