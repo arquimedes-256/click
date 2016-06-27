@@ -29,7 +29,7 @@ function init(args) {
 	function stepA() {
 		randCountry = _.sample(countryList);
 		console.log('baixando meta dados...')
-		exec('pkill openvpn ; cd /etc/openvpn/ && ls ' + randCountry + '*.ovpn',
+		exec('pkill openvpn ; cd vpnlist.d/ && ls *.ovpn',
 			function(error, stdout, stderr) {
 				vpnList = _.difference(stdout.split('\n'), ['']);
 				console.log(vpnList);
@@ -45,7 +45,7 @@ function init(args) {
 		if (ARCH != 'x86_64') {
 			DNS_OPTIONS = '\nscript-security 2\nup /etc/openvpn/update-resolv-conf\ndown /etc/openvpn/update-resolv-conf\n';
 		}
-		var VPNContent = fs.readFileSync('/etc/openvpn/' + randVpn, {
+		var VPNContent = fs.readFileSync('vpnlist.d/' + randVpn, {
 				encoding: 'utf8'
 			})
 			.replace(/^auth-user-pass$/gim, "auth-user-pass /etc/openvpn/auth.txt" + DNS_OPTIONS);
