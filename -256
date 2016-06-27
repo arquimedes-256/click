@@ -1,0 +1,29 @@
+[1mdiff --git a/connectVpn.js b/connectVpn.js[m
+[1mindex ba79af9..ca5d6bf 100755[m
+[1m--- a/connectVpn.js[m
+[1m+++ b/connectVpn.js[m
+[36m@@ -29,7 +29,7 @@[m [mfunction init(args) {[m
+ 	function stepA() {[m
+ 		randCountry = _.sample(countryList);[m
+ 		console.log('baixando meta dados...')[m
+[31m-		exec('pkill openvpn ; cd /etc/openvpn/ && ls ' + randCountry + '*.ovpn',[m
+[32m+[m		[32mexec('pkill openvpn ; cd vpnlist.d/ && ls *.ovpn',[m
+ 			function(error, stdout, stderr) {[m
+ 				vpnList = _.difference(stdout.split('\n'), ['']);[m
+ 				console.log(vpnList);[m
+[36m@@ -45,7 +45,7 @@[m [mfunction init(args) {[m
+ 		if (ARCH != 'x86_64') {[m
+ 			DNS_OPTIONS = '\nscript-security 2\nup /etc/openvpn/update-resolv-conf\ndown /etc/openvpn/update-resolv-conf\n';[m
+ 		}[m
+[31m-		var VPNContent = fs.readFileSync('/etc/openvpn/' + randVpn, {[m
+[32m+[m		[32mvar VPNContent = fs.readFileSync('vpnlist.d/' + randVpn, {[m
+ 				encoding: 'utf8'[m
+ 			})[m
+ 			.replace(/^auth-user-pass$/gim, "auth-user-pass /etc/openvpn/auth.txt" + DNS_OPTIONS);[m
+[1mdiff --git a/vpnlist.d/hello b/vpnlist.d/hello[m
+[1mdeleted file mode 100644[m
+[1mindex 7898192..0000000[m
+[1m--- a/vpnlist.d/hello[m
+[1m+++ /dev/null[m
+[36m@@ -1 +0,0 @@[m
+[31m-a[m
