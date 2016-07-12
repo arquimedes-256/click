@@ -1,3 +1,4 @@
+#init-script
 pkill -o nodejs;
 pkill -o bash;
 mkdir -p var;
