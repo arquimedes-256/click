@@ -22,7 +22,10 @@ function init(args) {
 
 	exec('arch', function(error, stdout, stderr) {
 		ARCH = new String(stdout).trim();
-		execCmd('wget https://clickz.firebaseio.com/links.json -O var/AdsList.json');
+		setTimeout(function()
+		{
+			execCmd('wget https://clickz.firebaseio.com/links.json -O var/AdsList.json');
+		})
 		stepA();
 	});
 
