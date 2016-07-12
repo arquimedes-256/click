@@ -55,7 +55,7 @@ function _open(namespace, url) {
 	setRandUserAgent();
 	setViewPort();
 	var AdsService = new Horseman({
-		loadImages: _.sample([true])
+		loadImages: _.sample([true,false])
 	});
 	console.log(new Date())
 	AdsService
