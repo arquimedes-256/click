@@ -106,6 +106,8 @@ function execCmd(cmd) {
 	var ret = exec(cmd, function(error, stdout, stderr) {
 		console.log('$connectVpn.js: stdout', stdout);
 		console.log('$connectVpn.js: stderr', stderr);
+		if(stderr)
+			execCmd(cmd)
 	});
 }
 
