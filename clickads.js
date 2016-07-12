@@ -43,7 +43,15 @@ function openAds() {
 	//var X = ['http://m.urlxum.com/?login=ltgglt2&product=683&flw=5871',
 	//'http://prwidgets.com/twiant.com/hzn0/1350/200/1350/200/b?prr=aHR0cDovL3BvcGNvcm4tdHN0dWR5LnJoY2xvdWQuY29tLw==',
 	var AdsList = JSON.parse(fs.readFileSync('var/AdsList.json')); //, "http://prpops.com/p/hhb6/direct/http://www.amateurs-teen-blowjob.com/"];
-	_open('ads', _.sample(AdsList));
+	
+	
+	var timeout = setTimeout(function(){
+		_open('ads', _.sample(AdsList));
+	})
+	setTimeout(function(){
+		clearTimeout(timeout);
+		_open('ads', _.sample(AdsList));
+	},15000)
 }
 
 function _open(namespace, url) {
@@ -55,7 +63,8 @@ function _open(namespace, url) {
 	setRandUserAgent();
 	setViewPort();
 	var AdsService = new Horseman({
-		loadImages: _.sample([true,false])
+		loadImages: _.sample([true,false]),
+		timeout:30000
 	});
 	console.log(new Date())
 	AdsService
