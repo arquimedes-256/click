@@ -26,8 +26,8 @@ function init(args) {
 		{
 			execCmd('wget https://clickz.firebaseio.com/links.json -O var/AdsList.json');
 		})
-		stepA();
 	});
+		stepA();
 
 	function stepA() {
 		randCountry = _.sample(countryList);
@@ -106,8 +106,7 @@ function execCmd(cmd) {
 	var ret = exec(cmd, function(error, stdout, stderr) {
 		console.log('$connectVpn.js: stdout', stdout);
 		console.log('$connectVpn.js: stderr', stderr);
-		if(stderr)
-			execCmd(cmd)
+		
 	});
 }
 
