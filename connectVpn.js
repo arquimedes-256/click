@@ -74,6 +74,7 @@ function init(args) {
 						dt: new Date().getTime()
 					});
 					isConnected = true;
+					/*
 					exec("wget http://api.ipify.org/ -O var/WTFObject.json", function(text) {
 						
 						console.log('wget executado');
@@ -88,6 +89,10 @@ function init(args) {
 						fs.writeFileSync('var/clickAdsReady.var', "1");
 						setTimeout(args.onComplete, 1000)
 					})
+					*/
+					
+						fs.writeFileSync('var/clickAdsReady.var', "1");
+						setTimeout(args.onComplete, 1000)
 				}
 			});
 	}
