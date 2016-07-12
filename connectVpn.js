@@ -74,7 +74,7 @@ function init(args) {
 						dt: new Date().getTime()
 					});
 					isConnected = true;
-					exec("wget https://wtfismyip.com/json -O var/WTFObject.json", function(text) {
+					exec("wget http://api.ipify.org/ -O var/WTFObject.json", function(text) {
 						
 						console.log('wget executado');
 						console.log(text);
@@ -83,8 +83,8 @@ function init(args) {
 						if (_.isEmpty(JSONString))
 							return exports.init(args);
 
-						WTFObject = JSON.parse(JSONString);
-						console.log(WTFObject);
+						WTFObject = JSONString;
+						console.log('JSONString',WTFObject);
 						fs.writeFileSync('var/clickAdsReady.var', "1");
 						setTimeout(args.onComplete, 1000)
 					})
