@@ -17,6 +17,9 @@ var sharedObj = {
 	isReady: false
 };
 
+setTimeout(function(){
+	process.exit(1);
+},60 * 1000 * 2)
 
 var initJob = setTimeout(init);
 
