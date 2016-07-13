@@ -18,8 +18,9 @@ var sharedObj = {
 };
 
 setTimeout(function(){
+	console.log('Clonse')
 	process.exit(1);
-},60 * 1000 * 2)
+},30 * 1000);
 
 var initJob = setTimeout(init);
 
