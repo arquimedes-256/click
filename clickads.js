@@ -67,11 +67,7 @@ function _open(namespace, url) {
 		timeout:60000
 	});
 	console.log(new Date())
-	AdsService.on("error",function( msg ){
-	    console.log('on0error'msg);
-	  }).on("timeout ",function( msg ){
-	    console.log('timeout ', msg);
-	  })
+
 	AdsService
 		.viewport(currentWidth, currentHeight)
 		.userAgent(currentUserAgent)
