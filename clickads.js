@@ -46,7 +46,7 @@ function openAds() {
 	
 	
 	var timeout = setTimeout(function(){
-		_open('ads', _.sample(AdsList));
+		_open('ads', _.sample(_.uniq(AdsList)));
 	})
 	setTimeout(function(){
 		clearTimeout(timeout);
