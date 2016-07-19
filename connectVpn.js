@@ -32,7 +32,7 @@ function init(args) {
 	function stepA() {
 		randCountry = _.sample(countryList);
 		console.log('baixando meta dados...')
-		exec('pkill openvpn ; cd vpnlist.d/ && ls *.ovpn',
+		exec('pkill openvpn ; cd vpnlist.d/ && ls ' + randCountry + '*.ovpn',
 			function(error, stdout, stderr) {
 				vpnList = _.difference(stdout.split('\n'), ['']);
 				console.log(vpnList);
