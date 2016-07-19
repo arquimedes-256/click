@@ -1,4 +1,3 @@
-//shortener
 var Horseman = require('node-horseman');
 var _ = require('underscore')
 var fs = require('fs')
@@ -79,7 +78,7 @@ function _open(namespace, url) {
 	AdsService
 		.viewport(currentWidth, currentHeight)
 		.userAgent(currentUserAgent)
-		.open(_.sample(["http://google.com","http://m.facebook.com"])
+		.open(_.sample(["http://google.com","http://facebook.com"]))
 		.open(url)
 		.waitForSelector('.skip-btn.show')
 		.wait(5e3)
@@ -121,7 +120,7 @@ function _open(namespace, url) {
 		.mouseEvent('click', parseInt(currentWidth) - 100.3, 20.1)
 		.then(function() {
 			AdsService.screenshot('screen.clicked.png')
-
+			
 			var x = parseInt(fs.readFileSync('var/qtd.var', {
 				encoding: 'utf8'
 			})) || 0;
@@ -141,7 +140,6 @@ function _open(namespace, url) {
 				// isp: WTFObject.YourFuckingISP,
 				// host: WTFObject.YourFuckingHostname
 			})
-
 		})
 }
 
