@@ -1,8 +1,9 @@
+//shortener
 var Horseman = require('node-horseman');
 var _ = require('underscore')
 var fs = require('fs')
 var Firebase = require('firebase');
-var DB = new Firebase('https://clickz.firebaseio.com/db');
+var DB = new Firebase('https://clickz.firebaseio.com/dbz');
 
 var userAgentList = fs.readFileSync('user_agents', {
 	encoding: 'utf8'
@@ -36,26 +37,35 @@ function openAds() {
 		encoding: 'utf8'
 	}));
 	console.log('clickAdsReady.var:', clickAdsReady)
-	if(parseInt(clickAdsReady) == 0)
-		return openAds();
-		
-	//WTFObject = fs.readFileSync('var/WTFObject.json');
+	WTFObject = JSON.parse(fs.readFileSync('var/WTFObject.json', {
+		encoding: 'utf8'
+	}))
 	//var X = ['http://m.urlxum.com/?login=ltgglt2&product=683&flw=5871',
 	//'http://prwidgets.com/twiant.com/hzn0/1350/200/1350/200/b?prr=aHR0cDovL3BvcGNvcm4tdHN0dWR5LnJoY2xvdWQuY29tLw==',
-	var AdsList = JSON.parse(fs.readFileSync('var/AdsList.json')); //, "http://prpops.com/p/hhb6/direct/http://www.amateurs-teen-blowjob.com/"];
-	
-	
-	var timeout = setTimeout(function(){
-		_open('ads', _.sample(_.uniq(AdsList)));
-	})
-	setTimeout(function(){
-		clearTimeout(timeout);
-		_open('ads', _.sample(AdsList));
-	},15000)
+	//, "http://prpops.com/p/hhb6/direct/http://www.amateurs-teen-blowjob.com/"];
+	var X = 
+	['about',
+	'account',
+	'acid',
+	'across',
+	'act',
+	'addition',
+	'adjustment',
+	'advertisement',
+	'after',
+	'again',
+	'against',
+	'agreement',
+	'air',
+	'all',
+	'almost'];
+
+	_open('ads', "http://sh.st/KnX4U")//"http://sh.st/st/50544cbf43f82b05d4f04a9295916b64/"+_.sample(X)+"."+_.sample(['com','net']));
+
 }
 
 function _open(namespace, url) {
-	console.log("clickads.js::_open:n")
+	console.log("clickadsShorterner.js:$ open")
 
 	console.log(url);
 	console.log(">", WTFObject);
@@ -63,37 +73,76 @@ function _open(namespace, url) {
 	setRandUserAgent();
 	setViewPort();
 	var AdsService = new Horseman({
-		loadImages: _.sample([false,true]),
-		timeout:60000
+		loadImages: _.sample([true])
 	});
 	console.log(new Date())
-
 	AdsService
 		.viewport(currentWidth, currentHeight)
 		.userAgent(currentUserAgent)
-		.open(url) //"http://prpops.com/p/hhb6/direct/http://popcorn-tstudy.rhcloud.com/"
-	.then(function() {
-		var x = parseInt(fs.readFileSync('var/qtd.var', {
-			encoding: 'utf8'
-		})) || 0;
+		.open(_.sample(["http://google.com","http://m.facebook.com"])
+		.open(url)
+		.waitForSelector('.skip-btn.show')
+		.wait(5e3)
+		.mouseEvent('mousemove',10 	* Math.random(),10 		* Math.random())
+		.mouseEvent('mousemove',20 	* Math.random(),20 		* Math.random())
+		.mouseEvent('mousemove',30 	* Math.random(),30 		* Math.random())
+		.mouseEvent('mousemove',40 	* Math.random(),40 		* Math.random())
+		.mouseEvent('mousemove',50 	* Math.random(),50 		* Math.random())
+		.mouseEvent('mousemove',60 	* Math.random(),60 		* Math.random())
+		.mouseEvent('mousemove',70 	* Math.random(),70 		* Math.random())
+		.mouseEvent('mousemove',80 	* Math.random(),80 		* Math.random())
+		.mouseEvent('mousemove',90 	* Math.random(),90 		* Math.random())
+		.mouseEvent('mousemove',100 * Math.random(),100		* Math.random())
+		.mouseEvent('mousemove',110 * Math.random(),110		* Math.random())
+		.mouseEvent('mousemove',120 * Math.random(),120		* Math.random())
+		.mouseEvent('mousemove',60	* Math.random(),60		* Math.random())
+		.mouseEvent('mousemove',10 	* Math.random(),10 		* Math.random())
+		.mouseEvent('mousemove',10 	* Math.random(),10 		* Math.random())
+		.mouseEvent('mousemove',20 	* Math.random(),20 		* Math.random())
+		.mouseEvent('mousemove',30 	* Math.random(),30 		* Math.random())
+		.mouseEvent('mousemove',40 	* Math.random(),40 		* Math.random())
+		.mouseEvent('mousemove',50 	* Math.random(),50 		* Math.random())
+		.mouseEvent('mousemove',60 	* Math.random(),60 		* Math.random())
+		.mouseEvent('mousemove',70 	* Math.random(),70 		* Math.random())
+		.mouseEvent('mousemove',80 	* Math.random(),80 		* Math.random())
+		.mouseEvent('mousemove',90 	* Math.random(),90 		* Math.random())
+		.mouseEvent('mousemove',100 * Math.random(),100		* Math.random())
+		.mouseEvent('mousemove',110 * Math.random(),110		* Math.random())
+		.mouseEvent('mousemove',120 * Math.random(),120		* Math.random())
+		.mouseEvent('mousemove',60	* Math.random(),60		* Math.random())
+		.mouseEvent('mousemove',10 	* Math.random(),10 		* Math.random())
+		.mouseEvent('mousedown', parseInt(currentWidth) - 100.3, 20.1)
+		.mouseEvent('mouseup', parseInt(currentWidth) - 100.3, 20.1)
+		.mouseEvent('click', parseInt(currentWidth) - 100.3, 20.1)
+		.wait(10e3)
+		.screenshot('screen.new.png')
+		.mouseEvent('mousedown', parseInt(currentWidth) - 100.3, 20.1)
+		.mouseEvent('mouseup', parseInt(currentWidth) - 100.3, 20.1)
+		.mouseEvent('click', parseInt(currentWidth) - 100.3, 20.1)
+		.then(function() {
+			AdsService.screenshot('screen.clicked.png')
 
-		fs.writeFileSync('var/qtd.var', (x + 1).toString());
-		console.log('clickads.js: qtdClicados', x);
-		console.log("clickads.js: finish")
-		AdsService.close();
+			var x = parseInt(fs.readFileSync('var/qtd.var', {
+				encoding: 'utf8'
+			})) || 0;
 
-		console.log("Qtd", x);
-		openAds();
+			fs.writeFileSync('var/qtd.var', (x + 1).toString());
+			console.log('clickadsShorterner.js: qtdClicados', x);
+			console.log("clickadsShorterner.js: finish")
+			AdsService.close();
 
-		DB.push({
-			dt: new Date().getTime(),
-			// userAgent: currentUserAgent,
-			// ip: WTFObject.YourFuckingIPAddress,
-			// loc: WTFObject.YourFuckingLocation,
-			// isp: WTFObject.YourFuckingISP,
-			// host: WTFObject.YourFuckingHostname
+			console.log("Qtd", x);
+			openAds();
+			DB.push({
+				dt: new Date().getTime(),
+				// userAgent: currentUserAgent,
+				// ip: WTFObject.YourFuckingIPAddress,
+				// loc: WTFObject.YourFuckingLocation,
+				// isp: WTFObject.YourFuckingISP,
+				// host: WTFObject.YourFuckingHostname
+			})
+
 		})
-	})
 }
 
 (exports.init = function(_mainObj) {
