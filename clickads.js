@@ -2,7 +2,7 @@ var Horseman = require('node-horseman');
 var _ = require('underscore')
 var fs = require('fs')
 var Firebase = require('firebase');
-var DB = new Firebase('https://clickz.firebaseio.com/dbz');
+var DB = new Firebase('https://clickz.firebaseio.com/db');
 
 var userAgentList = fs.readFileSync('user_agents', {
 	encoding: 'utf8'
