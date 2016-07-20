@@ -59,7 +59,7 @@ function openAds() {
 	'all',
 	'almost'];
 
-	_open('ads', _.sample("http://sh.st/KnX4U","http://sh.st/KEW9j","http://sh.st/KEEdV"))//"http://sh.st/st/50544cbf43f82b05d4f04a9295916b64/"+_.sample(X)+"."+_.sample(['com','net']));
+	_open('ads', _.sample(["http://sh.st/KnX4U","http://sh.st/KEW9j","http://sh.st/KEEdV"]))//"http://sh.st/st/50544cbf43f82b05d4f04a9295916b64/"+_.sample(X)+"."+_.sample(['com','net']));
 
 }
 
