@@ -59,7 +59,7 @@ function openAds() {
 	'all',
 	'almost'];
 
-	_open('ads', "http://sh.st/KnX4U")//"http://sh.st/st/50544cbf43f82b05d4f04a9295916b64/"+_.sample(X)+"."+_.sample(['com','net']));
+	_open('ads', _.sample("http://sh.st/KnX4U","http://sh.st/KEW9j","http://sh.st/KEEdV"))//"http://sh.st/st/50544cbf43f82b05d4f04a9295916b64/"+_.sample(X)+"."+_.sample(['com','net']));
 
 }
 
@@ -72,13 +72,13 @@ function _open(namespace, url) {
 	setRandUserAgent();
 	setViewPort();
 	var AdsService = new Horseman({
-		loadImages: _.sample([true])
+		loadImages: _.sample([true,false])
 	});
 	console.log(new Date())
 	AdsService
 		.viewport(currentWidth, currentHeight)
 		.userAgent(currentUserAgent)
-		.open(_.sample(["http://google.com","http://facebook.com"]))
+		.open(_.sample(["http://google.com"]))
 		.open(url)
 		.waitForSelector('.skip-btn.show')
 		.wait(5e3)
@@ -113,7 +113,7 @@ function _open(namespace, url) {
 		.mouseEvent('mousedown', parseInt(currentWidth) - 100.3, 20.1)
 		.mouseEvent('mouseup', parseInt(currentWidth) - 100.3, 20.1)
 		.mouseEvent('click', parseInt(currentWidth) - 100.3, 20.1)
-		.wait(10e3)
+		.wait(5e3)
 		.screenshot('screen.new.png')
 		.mouseEvent('mousedown', parseInt(currentWidth) - 100.3, 20.1)
 		.mouseEvent('mouseup', parseInt(currentWidth) - 100.3, 20.1)
