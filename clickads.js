@@ -78,10 +78,10 @@ function _open(namespace, url) {
 	AdsService
 		.viewport(currentWidth, currentHeight)
 		.userAgent(currentUserAgent)
-		.open(_.sample(["http://google.com"]))
+		.open(_.sample(["http://m.facebook.com"]))
 		.open(url)
 		.waitForSelector('.skip-btn.show')
-		.wait(5e3)
+		.wait(10e3)
 		.mouseEvent('mousemove',10 	* Math.random(),10 		* Math.random())
 		.mouseEvent('mousemove',20 	* Math.random(),20 		* Math.random())
 		.mouseEvent('mousemove',30 	* Math.random(),30 		* Math.random())
