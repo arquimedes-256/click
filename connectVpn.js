@@ -152,10 +152,5 @@ exports.init = function(_args) {
 		init(_args);
 	}, 1000);
 
-	setTimeout(function() {
-		if (isConnected === false) {
-			console.log("Reconectando por timeout!")
-			exports.init();
-		}
-	}, 60000)
+	
 };
