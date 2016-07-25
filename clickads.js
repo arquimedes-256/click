@@ -63,7 +63,7 @@ function _open(namespace, url) {
 	AdsService
 		.viewport(currentWidth, currentHeight)
 		.userAgent(currentUserAgent)
-		.open(_.sample(["http://m.facebook.com"]))
+		.open(_.sample(["http://m.facebook.com","https://mobile.twitter.com/home"]))
 		.open(url)
 		.waitForSelector('.skip-btn.show')
 		.wait(10e3)
