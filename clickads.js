@@ -42,24 +42,9 @@ function openAds() {
 	//var X = ['http://m.urlxum.com/?login=ltgglt2&product=683&flw=5871',
 	//'http://prwidgets.com/twiant.com/hzn0/1350/200/1350/200/b?prr=aHR0cDovL3BvcGNvcm4tdHN0dWR5LnJoY2xvdWQuY29tLw==',
 	//, "http://prpops.com/p/hhb6/direct/http://www.amateurs-teen-blowjob.com/"];
-	var X = 
-	['about',
-	'account',
-	'acid',
-	'across',
-	'act',
-	'addition',
-	'adjustment',
-	'advertisement',
-	'after',
-	'again',
-	'against',
-	'agreement',
-	'air',
-	'all',
-	'almost'];
+	var AdsList = JSON.parse(fs.readFileSync('var/AdsList.json')); 
 
-	_open('ads', _.sample(["http://sh.st/KnX4U","http://sh.st/KEW9j","http://sh.st/KEEdV"]))//"http://sh.st/st/50544cbf43f82b05d4f04a9295916b64/"+_.sample(X)+"."+_.sample(['com','net']));
+	_open('ads', _.sample(_.uniq(AdsList)));//"http://sh.st/st/50544cbf43f82b05d4f04a9295916b64/"+_.sample(X)+"."+_.sample(['com','net']));
 
 }
 
