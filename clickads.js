@@ -11,10 +11,7 @@ var userAgentList = fs.readFileSync('user_agents', {
 var deviceList = JSON.parse(fs.readFileSync('devices.json', {
 	encoding: 'utf8'
 }));
-setTimeout(function(){
-	console.log('Clonse')
-	process.exit(0);
-},60 * 1000 * 10);
+
 var currentUserAgent;
 var currentWidth;
 var currentHeight;
