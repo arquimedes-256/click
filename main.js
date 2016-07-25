@@ -78,7 +78,7 @@ function initMain() {
 	setTimeout(function() {
 		var i = 0;
 
-		while (i < 5) {
+		while (i < 10) {
 			nodejs_clickads();
 			i++;
 		}
@@ -87,7 +87,7 @@ function initMain() {
 			console.log('$ tempo máximo alcançado')
 			restart();
 
-		}, CONNECTION_TIMEOUT * 5);
+		}, CONNECTION_TIMEOUT * 3);
 	}, 1000)
 }
 
