@@ -78,7 +78,7 @@ function initMain() {
 	setTimeout(function() {
 		var i = 0;
 
-		while (i < 2) {
+		while (i < 5) {
 			nodejs_clickads();
 			i++;
 		}
