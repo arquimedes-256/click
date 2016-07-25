@@ -9,7 +9,7 @@ const MAX_NODES = 1;
 const START_NODE_INTERVAL = 10000;
 const CHECK_NODE_INTERVAL = START_NODE_INTERVAL * MAX_NODES;
 const CONNECTION_TIMEOUT = 60000;
-const MAX_VIEWS_BY_IP = 4;
+const MAX_VIEWS_BY_IP = 15;
 
 var count = MAX_NODES;
 var sharedObj = {
