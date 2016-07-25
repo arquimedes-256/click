@@ -9,7 +9,7 @@ const MAX_NODES = 1;
 const START_NODE_INTERVAL = 10000;
 const CHECK_NODE_INTERVAL = START_NODE_INTERVAL * MAX_NODES;
 const CONNECTION_TIMEOUT = 60000;
-const MAX_VIEWS_BY_IP = 15;
+const MAX_VIEWS_BY_IP = 3;
 
 var count = MAX_NODES;
 var sharedObj = {
@@ -20,7 +20,7 @@ var sharedObj = {
 setTimeout(function(){
 	console.log('Clonse')
 	process.exit(0);
-},60 * 1000 * 15);
+},60 * 1000 * 3);
 
 var initJob = setTimeout(init);
 
@@ -78,7 +78,7 @@ function initMain() {
 	setTimeout(function() {
 		var i = 0;
 
-		while (i < 10) {
+		while (i < 3) {
 			nodejs_clickads();
 			i++;
 		}
